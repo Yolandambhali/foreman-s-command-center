@@ -35,7 +35,9 @@ async function run<T>(args: { system: string; prompt: string; schema: z.ZodType<
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured for this project yet.");
 
-  const gateway = createLovableAiGatewayProvider(apiKey);
+  const gateway = createLovableAiGatewayProvider(apiKey, undefined, {
+    structuredOutputs: true,
+  });
 
   try {
     const result = streamText({
@@ -94,8 +96,8 @@ const notesSchema = z.object({
   actionItems: z.array(
     z.object({
       task: z.string(),
-      owner: z.string().nullish().transform((v) => v ?? null),
-      deadline: z.string().nullish().transform((v) => v ?? null),
+      owner: z.string().nullable(),
+      deadline: z.string().nullable(),
     }),
   ),
 });

@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CorrespondenceRouteImport } from './routes/correspondence'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as SiteNotesRouteImport } from './routes/site-notes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CorrespondenceRoute = CorrespondenceRouteImport.update({
+  id: '/correspondence',
+  path: '/correspondence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduleRoute = ScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteNotesRoute = SiteNotesRouteImport.update({
+  id: '/site-notes',
+  path: '/site-notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/correspondence': typeof CorrespondenceRoute
+  '/research': typeof ResearchRoute
+  '/schedule': typeof ScheduleRoute
+  '/site-notes': typeof SiteNotesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/correspondence': typeof CorrespondenceRoute
+  '/research': typeof ResearchRoute
+  '/schedule': typeof ScheduleRoute
+  '/site-notes': typeof SiteNotesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/correspondence': typeof CorrespondenceRoute
+  '/research': typeof ResearchRoute
+  '/schedule': typeof ScheduleRoute
+  '/site-notes': typeof SiteNotesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/correspondence' | '/research' | '/schedule' | '/site-notes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/correspondence' | '/research' | '/schedule' | '/site-notes'
+  id:
+    | '__root__'
+    | '/'
+    | '/correspondence'
+    | '/research'
+    | '/schedule'
+    | '/site-notes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CorrespondenceRoute: typeof CorrespondenceRoute
+  ResearchRoute: typeof ResearchRoute
+  ScheduleRoute: typeof ScheduleRoute
+  SiteNotesRoute: typeof SiteNotesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +94,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/correspondence': {
+      id: '/correspondence'
+      path: '/correspondence'
+      fullPath: '/correspondence'
+      preLoaderRoute: typeof CorrespondenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site-notes': {
+      id: '/site-notes'
+      path: '/site-notes'
+      fullPath: '/site-notes'
+      preLoaderRoute: typeof SiteNotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CorrespondenceRoute: CorrespondenceRoute,
+  ResearchRoute: ResearchRoute,
+  ScheduleRoute: ScheduleRoute,
+  SiteNotesRoute: SiteNotesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

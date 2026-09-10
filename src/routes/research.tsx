@@ -113,8 +113,9 @@ function Research() {
           <Panel title="Key points">
             <div className="space-y-2">
               {points.map((p, i) => (
-                <Input
+                <Textarea
                   key={i}
+                  rows={2}
                   value={p}
                   onChange={(e) => setPoints(points.map((v, j) => (i === j ? e.target.value : v)))}
                 />
